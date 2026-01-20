@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boletim Diário • Monitoramento Poda e Remoção</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- CSS do boletim (substitui seu css/style.css por este estilo abaixo) -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/kpis-manual.js" defer></script>
+  <script src="js/planilha-modal.js" defer></script>
+
+
+</head>
+
+<body>
+
+  <!-- MASTHEAD (estilo jornal) -->
+  <header class="masthead border-bottom">
+    <div class="container py-3">
+
+      <div class="masthead-top d-flex align-items-start justify-content-between gap-3 flex-wrap">
+        <div class="d-flex align-items-center gap-3">
+          <img src="img/LOGO_PREFEITURADESAOPAULO_HORIZONTAL_MONOCROMATICO_PRETO_PT.png" alt="Prefeitura de São Paulo"
+            class="logo" />
+          <div class="masthead-lines">
+            <div class="masthead-kicker">Secretaria Municipal das Subprefeituras • COPLAN/Dados</div>
+            <h1 class="masthead-title m-0">Boletim Diário de Monitoramento — Poda e Remoção</h1>
+            <div class="masthead-meta">
+              Edição de <strong id="dataAtual"></strong> • Última carga às <strong id="horaAtual"></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="masthead-actions d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-outline-dark" onclick="window.print()">
+            <i class="fa-solid fa-print me-2"></i>Imprimir
+          </button>
+        </div>
+      </div>
+
+      <div class="masthead-rule mt-3"></div>
+
+    </div>
+  </header>
+
+  <!-- LEAD (chamada estilo jornal) -->
+  <section class="leadline">
+    <div class="container py-3">
+      <div class="leadbox">
+        <div class="leadbox-left">
+          <div class="leadbox-tag">Resumo do dia</div>
+          <div class="leadbox-title" id="leadTitulo">Situação do estoque e ritmo de baixas nas últimas 24h</div>
+          <div class="leadbox-text" id="cardDestaque">—</div>
+        </div>
+        <div class="leadbox-right">
+          <div class="pill-status" id="pillStatus">Atualizado diariamente</div>
+          <div class="leadbox-note atualizacao-diaria"></div>
+          <div class="panel-sub">Para melhor vizualização deixe o celular na horizontal.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs (6 cards) -->
+  <section class="kpi-section">
+    <div class="container pb-4">
+
+      <div class="section-head">
+        <h2 class="section-title m-0">Indicadores do dia</h2>
+        <div class="section-sub">Atualização manual</div>
+      </div>
+
+      <div class="row g-4 mt-1">
+
+        <!-- KPI 1: Estoque Total -->
+        <div class="col-12 col-md-4 col-xl-4">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Estoque total</div>
+              <div class="kpi-icon"><i class="fa-solid fa-layer-group"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiEstoqueTotal">—</div>
+            <div class="kpi-foot">Total cadastrado na base</div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Estoque Atual -->
+        <!-- <div class="col-12 col-md-6 col-xl-4">
+          <div class="kpi-card kpi-strong">
+            <div class="kpi-top">
+              <div class="kpi-label">Estoque atual</div>
+              <div class="kpi-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiEstoqueAtual">—</div>
+            <div class="kpi-foot">Situação do estoque no dia</div>
+          </div>
+        </div> -->
+
+        <!-- KPI 3: Abertas -->
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Abertas</div>
+              <div class="kpi-icon"><i class="fa-solid fa-folder-open"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiAbertas">—</div>
+            <div class="kpi-foot">Novas solicitações no período</div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Encerradas -->
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-label">Encerradas</div>
+              <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiEncerradas">—</div>
+            <div class="kpi-foot">Baixas realizadas no período</div>
+          </div>
+        </div>
+
+        <!-- KPI 5: Top cumprida -->
+        <div class="col-12 col-xl-6">
+          <div class="kpi-card kpi-warn">
+            <div class="kpi-top">
+              <div class="kpi-label">Top cumprida</div>
+              <div class="kpi-icon"><i class="fa-solid fa-trophy"></i></div>
+            </div>
+            <div class="kpi-value kpi-small" id="kpiTopCumprida">—</div>
+            <div class="kpi-foot">Destaque do dia (melhor desempenho)</div>
+          </div>
+        </div>
+
+        <!-- KPI 6: Falta muito -->
+        <div class="col-12 col-xl-6">
+          <div class="kpi-card kpi-danger">
+            <div class="kpi-top">
+              <div class="kpi-label">Falta muito</div>
+              <div class="kpi-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+            <div class="kpi-value kpi-small" id="kpiFaltaMuito">—</div>
+            <div class="kpi-foot">Regiões ainda distantes da meta</div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PLANILHA (mantida) -->
+  <section class="sheet-section py-4">
+    <div class="container">
+
+      <div class="section-head">
+        <h2 class="section-title m-0">Planilha diária (fonte operacional)</h2>
+      </div>
+
+      <div class="panel mt-3">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Acesso rápido</div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#sheetModal"
+            data-sheet-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTQOdd6BX3P9vp0909zOoc8ypvDe18tfCGIA5GH0gQXgrbyLS-6b3EuxWXh1Tcgzoj97ldYBfA7bn4c/pubhtml?widget=true&headers=false">
+            <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
+          </button>
+        </div>
+
+        <div class="sheet-crop">
+          <iframe class="sheet-iframe"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTQOdd6BX3P9vp0909zOoc8ypvDe18tfCGIA5GH0gQXgrbyLS-6b3EuxWXh1Tcgzoj97ldYBfA7bn4c/pubhtml?widget=true&headers=false"
+            loading="lazy" title="Planilha diária (Google Sheets)">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GRÁFICOS -->
+  <section class="charts-section py-4">
+    <div class="container">
+
+      <div class="section-head">
+        <h2 class="section-title m-0">Gráficos do boletim</h2>
+        <div class="section-sub">Clique no ícone para ampliar</div>
+      </div>
+
+      <div class="row g-3 mt-2">
+
+        <!-- Exemplo: Gráfico principal -->
+        <div class="col-12">
+          <div class="panel">
+  <div class="panel-head">
+    <div>
+      <div class="panel-title">Baixas realizadas por Subprefeituras</div>
+    </div>
+
+    <!-- BOTÃO AMPLIAR (igual planilha, sem modal) -->
+    <a class="btn btn-sm btn-outline-dark"
+       href="img/graph_3_reducao_estoque_sub_20260120_m2.png"
+       target="_blank" rel="noopener">
+      <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
+    </a>
+  </div>
+
+  <div class="chart-scroll chart-scroll--g2">
+    <div class="chart-stage chart-stage--g2">
+      <div class="chart-media">
+        <img class="chart-img"
+             src="img/graph_3_reducao_estoque_sub_20260120_m2.png"
+             alt="Baixas realizadas por Subprefeituras"
+             loading="lazy" />
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="py-4 small text-secondary">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+          <div>
+            <h6 class="m-0">Secretaria Municipal das Subprefeituras</h6>
+            <p class="m-0">© <span id="ano"></span> • COPLAN/Dados</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  
+  <div class="modal fade" id="sheetModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header modal-header-fix">
+          <h5 class="modal-title text-truncate">Planilha Expandida</h5>
+
+          <button type="button" class="btn btn-sm btn-outline-light modal-close-fix" data-bs-dismiss="modal"
+            aria-label="Fechar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-body p-0">
+          <iframe id="modalSheetIframe" class="modal-sheet-iframe" title="Planilha expandida">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
