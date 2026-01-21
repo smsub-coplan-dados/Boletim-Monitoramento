@@ -2,11 +2,11 @@
 // Atualização manual do boletim (edite somente aqui)
 
 const KPIS_DO_DIA = {
-  estoqueTotal: 11595,
+  estoqueTotal: 11246,
   // estoqueAtual: 15420,
-  abertas: 6674,
-  encerradas: 6537,
-  topCumprida: "Parelheiros, Perus (cumpriu a meta)",
+  abertas: 3825,
+  encerradas: 7115,
+  topCumprida: "Parelheiros, Perus, Guaianazes (cumpriu a meta)",
   faltaMuito: "Pirituba, Cidade Ademar (muito abaixo da meta)",
 };
 
