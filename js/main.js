@@ -42,13 +42,13 @@ if ($("ano")) {
 
 // ========= ENTRADAS (ATUALIZE AQUI) =========
 // Base fixa (estoque inicial do período)
-const baseInicial = 17669;
+const baseInicial = 11382;
 
 // Estoque atual (HOJE)
-const estoqueHoje = 8645;
+const estoqueHoje = 7621;
 
 // Estoque do dia anterior (ONTEM)
-const estoqueOntem = 9665;
+const estoqueOntem = 8152;
 
 // ========= CÁLCULOS =========
 const faltaParaZerar = Math.max(0, estoqueHoje);

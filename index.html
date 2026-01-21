@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <!-- SheetJS (ler Excel no navegador) -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
   <!-- CSS do boletim (substitui seu css/style.css por este estilo abaixo) -->
   <link rel="stylesheet" href="css/style.css" />
@@ -22,7 +22,7 @@
   <script src="js/main.js" defer></script>
   <script src="js/kpis-manual.js" defer></script>
   <script src="js/planilha-modal.js" defer></script>
-  
+
 
 
 </head>
@@ -63,14 +63,13 @@
     <div class="container py-3">
       <div class="leadbox">
         <div class="leadbox-left">
-          <div class="leadbox-tag">Resumo do dia</div>
-          <div class="leadbox-title" id="leadTitulo">Situação do estoque e ritmo de baixas nas últimas 24h</div>
-          <div class="leadbox-text" id="cardDestaque">—</div>
+          <div class="leadbox-tag"> Sobre </div>
+          <div class="leadbox-title" id="leadTitulo">Acompanhamento do estoque para o serviço de Poda e
+            Remoção de Árvores.</div>
+          <div class="leadbox-text"> Cujo período de monitoramento se inicia a partir de 22/12/2025.</div>
         </div>
         <div class="leadbox-right">
-          <div class="pill-status" id="pillStatus">Atualizado diariamente</div>
-          <div class="leadbox-note atualizacao-diaria"></div>
-          <div class="panel-sub">Para melhor vizualização deixe o celular na horizontal.</div>
+          <div class="pill-status" id="pillStatus">Para melhor vizualização deixe o celular na horizontal.</div>
         </div>
       </div>
     </div>
@@ -81,8 +80,7 @@
     <div class="container pb-4">
 
       <div class="section-head">
-        <h2 class="section-title m-0">Indicadores do dia</h2>
-        <div class="section-sub">Atualização manual</div>
+        <h2 class="section-title m-0">Indicadores</h2>
       </div>
 
       <div class="row g-4 mt-1">
@@ -99,18 +97,6 @@
           </div>
         </div>
 
-        <!-- KPI 2: Estoque Atual -->
-        <!-- <div class="col-12 col-md-6 col-xl-4">
-          <div class="kpi-card kpi-strong">
-            <div class="kpi-top">
-              <div class="kpi-label">Estoque atual</div>
-              <div class="kpi-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-            </div>
-            <div class="kpi-value" id="kpiEstoqueAtual">—</div>
-            <div class="kpi-foot">Situação do estoque no dia</div>
-          </div>
-        </div> -->
-
         <!-- KPI 3: Abertas -->
         <div class="col-12 col-md-6 col-xl-4">
           <div class="kpi-card">
@@ -119,7 +105,7 @@
               <div class="kpi-icon"><i class="fa-solid fa-folder-open"></i></div>
             </div>
             <div class="kpi-value" id="kpiAbertas">—</div>
-            <div class="kpi-foot">Novas solicitações no período</div>
+            <div class="kpi-foot">Solicitações abertas no período</div>
           </div>
         </div>
 
@@ -131,7 +117,7 @@
               <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
             </div>
             <div class="kpi-value" id="kpiEncerradas">—</div>
-            <div class="kpi-foot">Baixas realizadas no período</div>
+            <div class="kpi-foot">Solicitações encerradas no período</div>
           </div>
         </div>
 
@@ -139,11 +125,10 @@
         <div class="col-12 col-xl-6">
           <div class="kpi-card kpi-warn">
             <div class="kpi-top">
-              <div class="kpi-label">Top cumprida</div>
+              <div class="kpi-label">Subprefeturas que mais executaram no período</div>
               <div class="kpi-icon"><i class="fa-solid fa-trophy"></i></div>
             </div>
-            <div class="kpi-value kpi-small" id="kpiTopCumprida">—</div>
-            <div class="kpi-foot">Destaque do dia (melhor desempenho)</div>
+            <div class="kpi-value kpi-small" id="cardsTopCumprida">—</div>
           </div>
         </div>
 
@@ -151,11 +136,10 @@
         <div class="col-12 col-xl-6">
           <div class="kpi-card kpi-danger">
             <div class="kpi-top">
-              <div class="kpi-label">Falta muito</div>
+              <div class="kpi-label">Subprefeituras que menos executaram no período</div>
               <div class="kpi-icon"><i class="fa-solid fa-circle-xmark"></i></div>
             </div>
-            <div class="kpi-value kpi-small" id="kpiFaltaMuito">—</div>
-            <div class="kpi-foot">Regiões ainda distantes da meta</div>
+            <div class="kpi-value kpi-small" id="cardsFaltaMuito">—</div>
           </div>
         </div>
 
@@ -166,17 +150,18 @@
 
 
   <!-- PLANILHA (mantida) -->
-<section class="sheet-section py-4">
+  <section class="sheet-section py-4">
     <div class="container">
 
       <div class="section-head">
-        <h2 class="section-title m-0">Planilha diária (fonte operacional)</h2>
+        <h2 class="section-title m-0">Planilha diária</h2>
       </div>
 
       <div class="panel mt-3">
         <div class="panel-head">
           <div>
             <div class="panel-title">Acesso rápido</div>
+            <div class="section-sub">Clique no ícone para ampliar</div>
           </div>
           <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#sheetModal"
             data-sheet-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSqiuYTV3APmg2a1ayXQe0iqeqREE2NDRgsNmgB5OO6RF_ye-ZMqzEHAz9c4yYPZk2cet-6MAxXDJb5/pubhtml?widget=true&headers=false">
@@ -200,7 +185,7 @@
     <div class="container">
 
       <div class="section-head">
-        <h2 class="section-title m-0">Gráficos do boletim</h2>
+        <h2 class="section-title m-0">Gráfico do boletim</h2>
         <div class="section-sub">Clique no ícone para ampliar</div>
       </div>
 
@@ -233,7 +218,7 @@
           <div class="panel">
             <div class="panel-head">
               <div>
-                <div class="panel-title">Estoque por Subprefeituras</div>
+                <div class="panel-title">Estoque por Subprefeitura</div>
               </div>
               <!-- BOTÃO AMPLIAR (igual planilha, sem modal) -->
               <a class="btn btn-sm btn-outline-dark" href="img/bar_graph_20260121.png" target="_blank" rel="noopener">
@@ -289,7 +274,7 @@
 
   <!-- Bootstrap bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
+
 
 
 </body>
