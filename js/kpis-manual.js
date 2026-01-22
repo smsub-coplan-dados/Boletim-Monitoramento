@@ -1,101 +1,84 @@
 // js/kpis-manual.js
-// Atualização manual do boletim (edite somente aqui)
 
 const KPIS_DO_DIA = {
   estoqueTotal: 11382,
   abertas: 3866,
   encerradas: 7115,
-  topCumprida: "Vila Mariana: 16806, Pinheiros: 16518, Butantã: 14699",
-  faltaMuito: "Perus: 2297, Cidade Tiradentes: 1617, Parelheiros: 1497",
+
+  // Aceita string "Nome (123), Nome (456)"
+  topCumprida: "Vila Mariana (16806), Pinheiros (16524), Butantã (14701)",
+
+  faltaMuito: "Perus (2297), Cidade Tiradentes (1617), Parelheiros (1497)"
 };
 
-// =====================
-// Parsers
-// =====================
-
-// Ex: "Vila Mariana (16806)" -> { nome: "Vila Mariana", valor: 16806 }
-function parseRegioesComValor(texto) {
-  return (texto || "")
-    .split(",")
-    .map(s => s.trim())
-    .filter(Boolean)
-    .map(item => {
-      const m = item.match(/^(.+?)\s*\(([\d.]+)\)\s*$/); // pega número entre parênteses
-      if (!m) return { nome: item, valor: null };
-
-      const nome = m[1].trim();
-      const valor = Number(m[2].replace(/\./g, "")); // se vier "16.806"
-      return { nome, valor: Number.isFinite(valor) ? valor : null };
-    });
-}
-
-// Ex: "Perus, Cidade Tiradentes" -> [{nome:"Perus"},{nome:"Cidade Tiradentes"}]
-function parseRegioesSemValor(texto) {
-  return (texto || "")
-    .split(",")
-    .map(s => s.trim())
-    .filter(Boolean)
-    .map(nome => ({ nome, valor: null }));
-}
-
+// ===== Helpers =====
 function formatBR(n) {
   return Number(n).toLocaleString("pt-BR");
 }
 
-// =====================
-// Render
-// =====================
+function parseRanking(input) {
+  // Se já vier array [{nome, valor}]
+  if (Array.isArray(input)) return input;
 
-function renderCards(containerId, items, badgeLabel) {
+  // Se vier string com padrões "Nome (123)"
+  if (typeof input !== "string") return [];
+
+  return input
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((item) => {
+      // captura nome + número dentro de parênteses
+      const m = item.match(/^(.*?)(?:\s*\(\s*([0-9]+)\s*\))?$/);
+      const nome = (m?.[1] || item).trim();
+      const valor = m?.[2] ? Number(m[2]) : null;
+      return { nome, valor };
+    });
+}
+
+function renderRankingCards(containerId, ranking, badgeText) {
   const el = document.getElementById(containerId);
   if (!el) return;
 
-  el.innerHTML = "";
+  const lista = parseRanking(ranking);
 
-  items.forEach((it) => {
-    const col = document.createElement("div");
-    col.className = "col-12"; // um embaixo do outro (muda p/ col-md-4 se quiser 3 por linha no PC)
+  if (!lista.length) {
+    el.textContent = "—";
+    return;
+  }
 
-    col.innerHTML = `
+  el.innerHTML = lista.map((r, idx) => {
+    const v = (r.valor === null || Number.isNaN(r.valor)) ? "—" : formatBR(r.valor);
+    const pos = idx + 1;
+
+    return `
       <div class="reg-card">
         <div class="reg-card__row">
-          <div class="reg-card__name">${it.nome}</div>
-          ${it.valor !== null ? `<div class="reg-card__value">${formatBR(it.valor)}</div>` : ""}
+          <div class="reg-card__name">${pos}. ${r.nome}</div>
+          <div class="reg-card__value">${v}</div>
         </div>
-        ${badgeLabel ? `<div class="reg-card__badge">${badgeLabel}</div>` : ""}
+        <div class="reg-card__badge">${badgeText}</div>
       </div>
     `;
-
-    el.appendChild(col);
-  });
+  }).join("");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const top = parseRegioesComValor(KPIS_DO_DIA.topCumprida);
-  const falta = parseRegioesSemValor(KPIS_DO_DIA.faltaMuito);
+(function applyKPIs() {
+  const $ = (id) => document.getElementById(id);
 
-  renderCards("cardsTopCumprida", top, );
-  renderCards("cardsFaltaMuito", falta, );
-});
+  if ($("kpiEstoqueTotal")) $("kpiEstoqueTotal").textContent = formatBR(KPIS_DO_DIA.estoqueTotal);
+  if ($("kpiAbertas")) $("kpiAbertas").textContent = formatBR(KPIS_DO_DIA.abertas);
+  if ($("kpiEncerradas")) $("kpiEncerradas").textContent = formatBR(KPIS_DO_DIA.encerradas);
 
+  renderRankingCards(
+    "cardsTopCumprida",
+    KPIS_DO_DIA.topCumprida,
+    "Maior execução no período"
+  );
 
-// ====== Render no HTML ======
-function setText(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = value;
-}
-
-function formatBR(n) {
-  const num = Number(n);
-  return Number.isFinite(num) ? num.toLocaleString("pt-BR") : String(n ?? "—");
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  setText("kpiEstoqueTotal", formatBR(KPIS_DO_DIA.estoqueTotal));
-  // setText("kpiEstoqueAtual", formatBR(KPIS_DO_DIA.estoqueAtual));
-  setText("kpiAbertas", formatBR(KPIS_DO_DIA.abertas));
-  setText("kpiEncerradas", formatBR(KPIS_DO_DIA.encerradas));
-  setText("kpiTopCumprida", KPIS_DO_DIA.topCumprida || "—");
-  setText("kpiFaltaMuito", KPIS_DO_DIA.faltaMuito || "—");
-
-});
+  renderRankingCards(
+    "cardsFaltaMuito",
+    KPIS_DO_DIA.faltaMuito,
+    "Menor execução no período"
+  );
+})();

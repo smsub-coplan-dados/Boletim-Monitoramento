@@ -1,142 +1,397 @@
-@import url('https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Inter:wght@400;600;700&display=swap');
+/* =========================================================
+   IMPORTAÇÃO DE FONTES (Google Fonts)
+   - Newsreader: cara de jornal (serif) para títulos/textos principais
+   - Inter: cara “corporativa/limpa” (sans) para labels, números, meta-info
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,600;6..72,700&family=Inter:wght@400;600;700&display=swap');
 
+/* =========================================================
+   VARIÁVEIS GLOBAIS (CSS Custom Properties)
+   - Centraliza cores, raio, sombra, etc.
+   - Você muda aqui e o site inteiro acompanha
+   ========================================================= */
 :root{
-  /* newsprint */
-  --paper: #fbf7ee;
-  --paper-2: #f3efe6;
-  --ink: #161616;
-  --muted: rgba(22,22,22,.70);
+  /* “Papel e tinta” (base editorial) */
+  --paper: #fbf7ee;        /* fundo papel claro */
+  --paper-2: #f3efe6;      /* variação do papel para degradês */
+  --ink: #151515;          /* “tinta” (texto principal) */
+  --muted: rgba(21,21,21,.72); /* texto secundário mais apagado */
 
-  /* accent editorial */
-  --accent: #8d1b2b;     /* vinho */
-  --accent-2: #0e4970;   /* azul institucional */
-  --border: rgba(22,22,22,.18);
+  /* Acentos (cores institucionais/editoriais) */
+  --accent: #8d1b2b;       /* vinho (destaques, tags) */
+  --accent-2: #0e4970;     /* azul institucional (status) */
+  --border: rgba(21,21,21,.18); /* bordas suaves (sem pesar) */
 
-  --radius: 16px;
-  --shadow: 0 14px 30px rgba(0,0,0,.08);
+  /* “Tokens” de layout */
+  --radius: 16px;          /* arredondamento padrão */
+  --shadow: 0 14px 30px rgba(0,0,0,.08); /* sombra padrão (leve e elegante) */
 }
 
+/* =========================================================
+   RESET BÁSICO
+   - box-sizing border-box evita “quebra” de layout por padding/borda
+   ========================================================= */
 *{ box-sizing: border-box; }
 
+/* =========================================================
+   ALTURA FULL PAGE
+   - Ajuda com seções e impressão
+   ========================================================= */
+html, body{ height: 100%; }
+
+/* =========================================================
+   BODY: fundo “papel” com texturas e tipografia editorial
+   - Radial gradients dão “clima” sem parecer template
+   - Linear gradient simula papel com leve variação
+   ========================================================= */
 body{
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "Arapey", serif;
-}
-
-/* ===== Masthead (jornal) ===== */
-.masthead{
+  margin: 0;               /* remove margem padrão do navegador */
+  color: var(--ink);       /* cor do texto principal */
   background:
-    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+    /* “mancha” vinho no topo esquerdo (muito sutil) */
+    /* radial-gradient(1200px 500px at 10% 0%, rgba(141,27,43,.06), transparent 55%), */
+    /* “mancha” azul no topo direito (muito sutil) */
+    radial-gradient(1200px 600px at 90% 0%, rgba(14,73,112,.06), transparent 55%),
+    /* degradê de papel */
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 45%, var(--paper) 100%);
+  font-family: "Newsreader", serif; /* fonte principal (jornal) */
 }
 
-.logo{
-  height: clamp(64px, 9vw, 96px);
-  width: auto;
-  object-fit: contain;
+/* =========================================================
+   HELPERS VISUAIS (filetes / regras)
+   - “Rule” é aquele traço de jornal separando conteúdo
+   ========================================================= */
+.rule-thick{
+  height: 3px; /* filete grosso */
+  background: linear-gradient(90deg, var(--ink), transparent); /* começa forte e some */
+  opacity: .55; /* suaviza */
+}
+.rule-thin{
+  height: 1px; /* filete fino */
+  background: linear-gradient(90deg, var(--ink), transparent);
+  opacity: .35;
+  margin-top: 10px;
+  margin-bottom: 14px;
 }
 
-.masthead-kicker{
+/* =========================================================
+   CODE (trechos dentro de <code>)
+   - Usa fonte monoespaçada para parecer “técnico”
+   ========================================================= */
+code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: .92em; /* levemente menor para não “gritar” */
+}
+
+/* =========================================================
+   TOP STRIP (faixa superior tipo cabeçalho do jornal)
+   - “glass effect”: fundo translúcido + blur
+   ========================================================= */
+.top-strip{
+  border-bottom: 1px solid var(--border); /* separa do resto da página */
+  background: rgba(255,255,255,.35);      /* translúcido */
+  backdrop-filter: blur(6px);             /* desfoque do fundo (efeito premium) */
+}
+
+/* pílula “COPLAN/Dados” */
+.strip-pill{
+  display:inline-flex;      /* fica como “badge” flex */
+  align-items:center;       /* centraliza verticalmente */
+  padding: 3px 10px;        /* espaçamento interno */
+  border-radius: 999px;     /* deixa totalmente arredondado */
+  border: 1px solid var(--border);
+  background: rgba(141,27,43,.08); /* leve vinho */
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: .85rem;
-  letter-spacing: .08em;
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* texto secundário do strip (ex: secretaria) */
+.strip-muted{
+  margin-left: 10px; /* distancia da pílula */
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+/* data/hora no strip */
+.strip-date{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* =========================================================
+   MASTHEAD (cabeçalho principal)
+   - fundo suave pra destacar título sem virar “banner”
+   ========================================================= */
+.masthead{
+  background: linear-gradient(180deg, rgba(255,255,255,.40), rgba(255,255,255,0));
+}
+
+/* grid: logo+título de um lado, box de edição do outro */
+.masthead-grid{
+  display: grid;
+  grid-template-columns: 1.6fr .9fr; /* coluna maior para título, menor para box */
+  gap: 18px;                         /* espaço entre colunas */
+  align-items: stretch;              /* estica as colunas na mesma altura */
+}
+
+/* logo responsiva (tamanho muda conforme viewport) */
+.logo{
+  height: clamp(64px, 8vw, 92px); /* min 64, ideal 8vw, max 92 */
+  width: auto;
+  object-fit: contain;             /* evita distorcer */
+}
+
+/* kicker: linha pequena antes do título (estilo jornal) */
+.kicker{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .82rem;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.masthead-title{
-  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  font-weight: 400;
-  line-height: 1.1;
-  margin-top: 2px;
+/* título principal do boletim */
+.title{
+  font-size: clamp(1.75rem, 2.6vw, 2.6rem); /* responsivo */
+  line-height: 1.05;       /* compacto, cara editorial */
+  font-weight: 700;
+  letter-spacing: .01em;
+  margin-top: 3px;
 }
 
-.masthead-meta{
+/* “deck”: subtítulo/descrição logo abaixo do título */
+.deck{
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: .95rem;
   color: var(--muted);
-  margin-top: 4px;
+  font-size: 1rem;
+  margin-top: 6px;
+  line-height: 1.5;
 }
 
-.masthead-rule{
-  height: 2px;
+/* box lateral: informações de edição (tipo jornal) */
+.edition-box{
+  background: rgba(255,255,255,.60);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 14px 12px 14px;
+  display:flex;
+  flex-direction: column; /* empilha conteúdos */
+  gap: 10px;              /* espaço entre linhas */
+}
+
+/* topo do box: “Edição” de um lado, valor do outro */
+.edition-top{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* label “Edição” */
+.edition-label{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .80rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* valor “Diária” (ou “Semanal”) */
+.edition-value{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+}
+
+/* filete interno separando partes do box */
+.edition-rule{
+  height: 1px;
   background: linear-gradient(90deg, var(--ink), transparent);
-  opacity: .45;
+  opacity: .25;
 }
 
-/* ===== Leadline (chamada principal) ===== */
+/* lista de metadados no box (Abrangência, Fonte etc.) */
+.edition-meta{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* cada linha do meta: chave (esq) e valor (dir) */
+.edition-meta-row{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* chave do meta (ex: Fonte) */
+.meta-k{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .88rem;
+  color: var(--muted);
+}
+
+/* valor do meta (ex: Planilha operacional) */
+.meta-v{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .92rem;
+  font-weight: 700;
+}
+
+/* pill de status (alerta / dica no topo) */
+.pill-status{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .92rem;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(14,73,112,.08);
+  color: var(--ink);
+}
+
+/* =========================================================
+   LEADLINE (chamada principal do boletim)
+   - faixa com borda superior/inferior como seção editorial
+   ========================================================= */
 .leadline{
-  background: linear-gradient(180deg, var(--paper-2), var(--paper));
+  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.25);
 }
 
+/* caixa do lead em grid: texto + resumo/ações */
 .leadbox{
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.4fr .9fr;
   gap: 18px;
   align-items: stretch;
-  justify-content: space-between;
-  background: rgba(255,255,255,.55);
+  background: rgba(255,255,255,.65);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
   box-shadow: var(--shadow);
 }
 
-.leadbox-left{ flex: 1 1 auto; min-width: 0; }
-.leadbox-right{
-  flex: 0 0 240px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.leadbox-tag{
+/* tag “Sobre” */
+.lead-tag{
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: .8rem;
-  letter-spacing: .08em;
+  font-size: .82rem;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
-.leadbox-title{
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+/* título do lead (chamada) */
+.lead-title{
+  font-size: clamp(1.25rem, 2vw, 1.70rem);
   margin-top: 6px;
-  margin-bottom: 8px;
+  line-height: 1.15;
+  font-weight: 700;
 }
 
-.leadbox-text{
+/* texto do lead */
+.lead-text{
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: rgba(21,21,21,.84);
   font-size: 1rem;
-  color: rgba(22,22,22,.85);
-  line-height: 1.6;
+  line-height: 1.65;
+  margin-top: 10px;
+  
 }
 
-.pill-status{
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: .9rem;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(141,27,43,.08);
-  color: var(--ink);
-}
-
-/* ===== Section headers ===== */
-.section-head{
+/* coluna da direita no lead (resumo e botões) */
+.lead-right{
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  
+}
+
+/* caixinha do “Resumo do dia” */
+.lead-brief{
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,.75);
+  
+}
+
+/* label “Resumo do dia” */
+.brief-label{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+ 
+}
+
+/* texto do resumo */
+.brief-text{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin-top: 12px;
+  font-size: .98rem;
+  color: rgba(21,21,21,.86);
+  line-height: 1.55;
+ 
+  
+}
+
+/* área de botões do lead */
+.lead-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap; /* quebra linha no mobile */
+}
+
+/* Centralizar os botões dentro do "Resumo do dia" */
+.brief-actions{
+  display: flex;
+  flex-direction: row;   
+  flex-wrap: wrap;             /* um ao lado do outro (fica bonito) */
+  align-items: center;         /* centraliza horizontalmente */
+  justify-content: center;     /* centraliza verticalmente */
+  gap: 10px;                   /* espaçamento entre os botões */
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* garantir que os botões fiquem alinhados e com mesma largura */
+.brief-actions .btn{
+  width: auto;
+  max-width: none;
+  min-width: 190px;            /* controla o “tamanho do quadrado” */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   TÍTULOS DE SEÇÃO (Indicadores, Planilha, Gráficos)
+   ========================================================= */
+.section-head{
+  display:flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  margin-top: 18px;     /* espaço acima */
+  margin-bottom: 10px;   /* espaço antes da linha (rule) */
 }
 
 .section-title{
-  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
-  font-weight: 400;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  font-weight: 800;
   margin: 0;
+  letter-spacing: .01em;
 }
 
 .section-sub{
@@ -145,150 +400,198 @@ body{
   color: var(--muted);
 }
 
-/* ===== KPI cards ===== */
-.section-head{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.section-title{ font-size: 1.6rem; font-weight: 400; }
-.section-sub{ font-size: .95rem; opacity: .75; }
-
+/* =========================================================
+   KPI CARDS (estilo executivo, mas editorial)
+   ========================================================= */
 .kpi-card{
-  background: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.70);
   border: 1px solid rgba(0,0,0,.18);
-  border-radius: 16px;
+  border-radius: var(--radius);
   padding: 16px;
-  box-shadow: 0 14px 30px rgba(0,0,0,.08);
-  height: 100%;
+  box-shadow: var(--shadow);
+  height: 100%; /* força todos os cards a mesma altura na row */
 }
 
+/* variações de destaque */
 .kpi-strong{
   border-color: rgba(141,27,43,.35);
-  background: linear-gradient(180deg, rgba(141,27,43,.08), rgba(255,255,255,.65));
+  background: linear-gradient(180deg, rgba(141,27,43,.08), rgba(255,255,255,.70));
 }
 
 .kpi-warn{
   border-color: rgba(14,73,112,.30);
-  background: linear-gradient(180deg, rgba(14,73,112,.08), rgba(255,255,255,.65));
-}
-
-.kpi-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-
-.kpi-label{
-  font-size: .9rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  opacity: .75;
-}
-
-.kpi-icon{
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  display:grid;
-  place-items:center;
-  border: 1px solid rgba(0,0,0,.18);
-  background: rgba(255,255,255,.8);
-}
-
-.kpi-value{
-  font-size: 2.2rem;
-  margin-top: 8px;
-  line-height: 1.1;
-}
-
-.kpi-small{
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.kpi-foot{
-  font-size: .95rem;
-  opacity: .75;
-  margin-top: 8px;
-  line-height: 1.4;
+  background: linear-gradient(180deg, rgba(14,73,112,.08), rgba(255,255,255,.70));
 }
 
 .kpi-danger{
   border-color: rgba(186,35,57,.45);
-  background: linear-gradient(180deg, rgba(186,35,57,.10), rgba(255,255,255,.65));
+  background: linear-gradient(180deg, rgba(186,35,57,.10), rgba(255,255,255,.70));
 }
 
-.kpi-danger .kpi-icon{
-  color: #BA2339;
+/* topo do KPI: label à esquerda e ícone à direita */
+.kpi-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
 }
 
+/* label pequena do KPI (ex: Estoque total) */
+.kpi-label{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 
-/* ===== Panels (conteúdo) ===== */
+/* bolha do ícone */
+.kpi-icon{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display:grid;
+  place-items:center;
+  border: 1px solid rgba(0,0,0,.18);
+  background: rgba(255,255,255,.85);
+}
+
+/* número grande do KPI */
+.kpi-value{
+  font-size: 2.2rem;
+  margin-top: 8px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+/* rodapé do KPI (descrição) */
+.kpi-foot{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .95rem;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* lista vertical usada nos rankings (Top / Falta muito) */
+.kpi-list{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* =========================================================
+   “REG-CARD” (cards internos do ranking)
+   - um embaixo do outro, com nome à esquerda e valor à direita
+   ========================================================= */
+.reg-card{
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 12px;
+  padding: 10px 12px;
+  /* background: rgba(255,255,255,.70); */
+}
+
+/* linha principal do reg-card */
+.reg-card__row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+
+/* nome da subprefeitura */
+.reg-card__name{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: .98rem;
+}
+
+/* valor (badge) do lado direito */
+.reg-card__value{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.06);
+  white-space: nowrap; /* evita quebrar valor em 2 linhas */
+}
+
+/* textinho de contexto abaixo */
+.reg-card__badge{
+  margin-top: 6px;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: .85rem;
+  color: rgba(0,0,0,.62);
+}
+
+/* =========================================================
+   PANEL (container padrão para planilha e gráficos)
+   ========================================================= */
 .panel{
-  background: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.70);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
   box-shadow: var(--shadow);
 }
 
+/* cabeçalho do panel: título + botão */
 .panel-head{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
   gap: 12px;
   margin-bottom: 12px;
 }
 
+/* título do panel */
 .panel-title{
-  font-size: 1.35rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: .01em;
 }
 
+/* subtítulo do panel */
 .panel-sub{
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   font-size: .95rem;
   color: var(--muted);
+  margin-top: 2px;
 }
 
-hr{
-  border-color: var(--border);
-}
-
-/* ===== Sheet embed ===== */
-.sheet-scroll{
+/* =========================================================
+   PLANILHA (IFRAME)
+   - sheet-crop corta o “header chato” do Google publish
+   - sheet-iframe sobe com top negativo para esconder o título
+   ========================================================= */
+.sheet-crop{
   width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,.03);
+  height: 720px; /* altura no desktop */
+  overflow: hidden; /* corta o que “sobrar” */
+  position: relative; /* necessário para top do iframe */
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.80);
   border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
 }
 
-.sheet-stage{
-  min-width: 980px; /* permite rolagem horizontal quando precisa */
-}
-
-.sheet-iframe{
+/* iframe da planilha */
+.sheet-crop .sheet-iframe{
   width: 100%;
-  height: 720px;
+  height: calc(100% + 50px); /* maior pra permitir subir e ainda preencher */
   border: 0;
+  position: relative;
+  top: -80px; /* “puxa pra cima” pra esconder o cabeçalho do Google */
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
 }
 
-/* ===== Charts (PNG) + modal ===== */
+/* =========================================================
+   CHARTS (PNG com scroll quando muito grande)
+   ========================================================= */
 .chart-scroll{
   width: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: auto; /* permite rolar horizontal/vertical */
+  -webkit-overflow-scrolling: touch; /* scroll suave no iOS */
   padding: 10px;
   border-radius: 12px;
   background: rgba(0,0,0,.03);
@@ -296,8 +599,7 @@ hr{
 }
 
 .chart-stage{
-  position: relative;
-  display: inline-block;
+  display: inline-block; /* permite “crescer” e gerar scroll */
   padding: 8px;
   background: #fff;
   border-radius: 12px;
@@ -306,74 +608,37 @@ hr{
 
 .chart-media{
   border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; /* corta excesso da imagem */
   background: #fff;
 }
 
 .chart-img{
-  display: block;
-  max-width: 100%; /* permite ser maior e gerar scroll */
-  height: auto;
+  display:block;
+  max-width: none; /* não limita em 100%, deixa rolar se for grande */
+  height:auto;
 }
 
-.chart-scroll--g2{ max-height: 920px; }
-.chart-stage--g2{ min-width: 1200px; }
-
-.chart-click-overlay{
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: transparent;
-  cursor: zoom-in;
-  z-index: 10;
-}
-
-.chart-expand-icon{
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: rgba(141,27,43,.92);
-  color: #fff;
-  z-index: 12;
-  opacity: 0;
-  transition: .18s ease;
-  pointer-events: none;
-}
-
-.chart-scroll:hover .chart-expand-icon{
-  opacity: 1;
-}
-
-/* ===== Modal ===== */
-#chartModal{ z-index: 1060; }
-
-#chartModal .modal-content{
-  background: #111;
-  border: 1px solid rgba(255,255,255,.12);
-}
-
+/* =========================================================
+   MODAL (planilha tela cheia)
+   - header com gradiente e X fixo
+   ========================================================= */
 .modal-header-fix{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap: 12px;
   width: 100%;
   padding: 14px 18px;
-  background: linear-gradient(135deg, rgba(141,27,43,.92), rgba(14,73,112,.25));
+  background: linear-gradient(135deg, rgba(141,27,43,.92), rgba(14,73,112,.28));
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
 .modal-header-fix .modal-title{
-  flex: 1 1 auto;
-  min-width: 0;
-  color: #fff;
+  flex: 1 1 auto; /* ocupa o máximo possível */
+  min-width: 0;   /* permite truncar com ellipsis */
+  color:#fff;
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .modal-close-fix{
@@ -381,21 +646,7 @@ hr{
   margin-left: auto;
 }
 
-#chartModal .modal-body{
-  padding: 0;
-  background: #111;
-  height: calc(100vh - 64px);
-  overflow: hidden;
-}
-
-.modal-chart-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  background: #111;
-}
-
+/* iframe dentro do modal */
 .modal-sheet-iframe{
   width: 100%;
   height: 100%;
@@ -403,94 +654,108 @@ hr{
   background: #111;
 }
 
-/* garante altura do modal body certinha */
+/* garante que a área do modal ocupa a tela toda menos o header */
 #sheetModal .modal-body{
   height: calc(100vh - 64px);
   overflow: hidden;
 }
 
-.sheet-crop{
-  width: 100%;
-  height: 720px;          /* ajuste conforme seu card */
-  overflow: hidden;       /* isso aqui faz o recorte */
-  position: relative;
-  border-radius: 16px;    /* opcional, estética */
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
 }
 
-.sheet-crop .sheet-iframe{
-  width: 100%;
-  height: calc(100% + 50px); /* aumenta porque vamos subir */
-  border: 0;
-  position: relative;
-  top: -80px;              /* <-- AQUI você remove o título */
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr; /* duas colunas no desktop */
+  gap: 10px;
+  align-items: start;
 }
 
-/* ===== Responsivo ===== */
+.footer-title{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.footer-sub{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* =========================================================
+   RESPONSIVO (tablet e abaixo)
+   - vira 1 coluna no masthead e no lead
+   - imagens ganham um limite “saudável”
+   ========================================================= */
+@media (max-width: 992px){
+  .masthead-grid{ grid-template-columns: 1fr; }
+  .leadbox{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .chart-img{ max-width: 1200px; }
+}
+
+/* =========================================================
+   MOBILE: compactar planilha como imagem (zoom-out)
+   - isso reduz a planilha “visualmente” dentro do card
+   - compensação de width/height evita “sobrar branco”
+   ========================================================= */
 @media (max-width: 576px){
-  .leadbox{
-    flex-direction: column;
+
+  /* some com texto secundário da faixa do topo pra caber melhor */
+  .strip-muted{ display:none; }
+
+  /* card da planilha menor no celular */
+  .sheet-crop{
+    height: 420px;     /* ajuste fino: 380-520 */
+    overflow: hidden;
   }
-  .leadbox-right{
-    flex: 1 1 auto;
-    align-items: flex-start;
+
+  /* aplica zoom-out na planilha */
+  .sheet-crop .sheet-iframe{
+    transform: scale(0.72);     /* quanto menor, mais “compactado” */
+    transform-origin: 0 0;      /* escala a partir do topo esquerdo */
+
+    /* compensação: se você escala para 0.72, precisa aumentar a “área” do iframe */
+    width: 138.9%;             /* 100 / 0.72 = 138.9 */
+    height: calc((100% + 50px) / 0.72);
+
+    /* recorte do cabeçalho no mobile (normalmente menos que no desktop) */
+    top: -55px;
   }
 
-  .sheet-stage{ min-width: 0; }
-  .sheet-iframe{ height: 560px; }
-
-  .chart-stage--g2{ min-width: 0; }
-  .chart-img{ max-width: 100%; }
+  /* limita gráficos um pouco no mobile */
+  .chart-img{ max-width: 1000px; }
 }
 
-@media (min-width: 992px){
-  .chart-scroll--g2{ max-height: 1020px; }
-}
-@media (min-width: 992px){
-  .chart-img{ max-width: none; }
-}
-
-/* ===== Impressão ===== */
+/* =========================================================
+   IMPRESSÃO
+   - tira fundo “papel”, sombras e botões
+   - deixa tudo branco e legível
+   ========================================================= */
 @media print{
-  body{ background:#fff !important; color:#111 !important; }
-  .masthead, .leadline{ background:#fff !important; }
-  .kpi-card, .panel, .leadbox{
+  body{
+    background:#fff !important;
+    color:#111 !important;
+  }
+
+  /* some com elementos de interação */
+  .top-strip, .lead-actions .btn, .btn{
+    display:none !important;
+  }
+
+  /* remove estética “web” e deixa “relatório” */
+  .kpi-card, .panel, .leadbox, .edition-box, .sheet-crop{
     background:#fff !important;
     border:1px solid #ddd !important;
     box-shadow:none !important;
   }
-  .btn{ display:none !important; }
-  .chart-expand-icon, .chart-click-overlay{ display:none !important; }
-}
 
-.reg-card{
-  border: 1px solid rgba(0,0,0,.10);
-  border-radius: 12px;
-  padding: 12px 14px;
- 
+  .chart-scroll{
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+  }
 }
-
-.reg-card__row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 12px;
-}
-
-.reg-card__name{
-  font-weight: 400;
-}
-
-.reg-card__value{
-  font-weight: 400;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.06);
-  white-space: nowrap;
-}
-
-.reg-card__badge{
-  margin-top: 6px;
-  font-size: .85rem;
-  color: rgba(0,0,0,.6);
-}
-
