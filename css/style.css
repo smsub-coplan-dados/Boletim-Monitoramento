@@ -952,53 +952,6 @@ code{
 /* =========================================================
    BOTÃO VOLTAR AO TOPO (floating)
    ========================================================= */
-/* =========================================================
-   CHARTS (PNG) — DESKTOP PADRÃO (sem distorcer)
-   ========================================================= */
-.chart-scroll{
-  width: 100%;
-  overflow: hidden;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,.03);
-  border: 1px solid var(--border);
-}
-
-.chart-stage{
-  width: 100%;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.chart-media{
-  width: 100%;
-  height: clamp(360px, 55vh, 680px);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.12);
-  box-shadow: 0 10px 25px rgba(0,0,0,.06);
-  display: grid;
-  place-items: center;
-}
-
-.chart-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* SEM distorção */
-  display: block;
-}
-
-/* Se você quiser 2 últimos gráficos mais altos, use essa classe no HTML:
-   <div class="chart-media chart-media--xl"> ... */
-.chart-media--xl{
-  height: clamp(650px, 80vh, 980px);
-}
-
-/* =========================================================
-   BOTÃO VOLTAR AO TOPO
-   ========================================================= */
 .back-to-top{
   position: fixed;
   right: 18px;
@@ -1010,7 +963,7 @@ code{
   place-items: center;
 
   background: rgba(21,21,21,.88);
-  color: #c7ad1c;
+  color: #ceb736;
   border: 1px solid rgba(255,255,255,.18);
   box-shadow: 0 12px 26px rgba(0,0,0,.18);
 
@@ -1033,108 +986,11 @@ code{
   background: rgba(141,27,43,.92);
 }
 
-/* =========================================================
-   MOBILE (até 576px) — UM ÚNICO BLOCO
-   ========================================================= */
 @media (max-width: 576px){
-
-  .strip-muted{ display:none; }
-
-  .container{
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
-  .top-strip .strip-right{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: flex-start;
-  }
-
-  .top-strip .strip-date{
-    width: 100%;
-    display: block;
-  }
-
-  .top-strip .btn{
-    width: 100%;
-  }
-
-  .masthead-grid{
-    grid-template-columns: 1fr !important;
-    gap: 12px;
-  }
-
-  .brand{
-    flex-direction: column;
-    align-items: flex-start !important;
-  }
-
-  .logo{ height: 64px; }
-
-  .title{
-    font-size: 1.6rem;
-    line-height: 1.1;
-  }
-
-  .leadbox{
-    grid-template-columns: 1fr !important;
-    gap: 12px;
-    padding: 14px;
-  }
-
-  .brief-actions{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .brief-actions .btn{
-    width: 100%;
-    max-width: 260px;
-  }
-
-  .panel{
-    padding: 14px;
-  }
-
-  .panel-head{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .panel-head .btn{
-    width: 100%;
-  }
-
-  /* Planilha compactada */
-  .sheet-crop{ height: 420px; overflow: hidden; }
-
-  .sheet-crop .sheet-iframe{
-    transform: scale(0.72);
-    transform-origin: 0 0;
-    width: calc(100% / 0.72);
-    height: calc((100% + 50px) / 0.72);
-    top: -55px;
-    position: relative;
-  }
-
-  /* Gráficos no mobile: um pouco mais altos */
-  .chart-media{
-    height: 520px;
-  }
-
   .back-to-top{
     right: 12px;
     bottom: 12px;
     width: 40px;
     height: 40px;
   }
-
-  .kpi-value{ font-size: 1.9rem; }
 }
