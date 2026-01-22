@@ -350,3 +350,49 @@ body{
   .panel{ background:#fff !important; border:1px solid #ddd !important; box-shadow:none !important; }
   .chart-scroll{ border:1px solid #ddd !important; background:#fff !important; }
 }
+
+/* =========================================================
+   BOTÃO VOLTAR AO TOPO (floating)
+   ========================================================= */
+.back-to-top{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(21,21,21,.88);
+  color: #ceb736;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 12px 26px rgba(0,0,0,.18);
+
+  text-decoration: none;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: .2s ease;
+  z-index: 99999;
+}
+
+.back-to-top.show{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover{
+  background: rgba(141,27,43,.92);
+}
+
+@media (max-width: 576px){
+  .back-to-top{
+    right: 12px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+  }
+}
