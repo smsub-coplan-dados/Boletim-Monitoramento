@@ -759,3 +759,196 @@ code{
     background: #fff !important;
   }
 }
+/* =========================================================
+   MOBILE FIXES — INDEX (até 576px)
+   ========================================================= */
+@media (max-width: 576px){
+
+  /* container mais “justo” */
+  .container{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  /* ---------- TOP STRIP ---------- */
+  .top-strip .strip-right{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .top-strip .strip-date{
+    width: 100%;
+    display: block;
+  }
+
+  /* botões quebram bonitinho e ocupam linha quando precisar */
+  .top-strip .btn{
+    width: 100%;
+  }
+
+  /* opcional: some com texto grande no mobile */
+  .strip-muted{
+    display: none;
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead-grid{
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .brand{
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .logo{
+    height: 64px; /* reduz logo no mobile */
+  }
+
+  .title{
+    font-size: 1.6rem;
+    line-height: 1.1;
+  }
+
+  .deck{
+    font-size: .95rem;
+  }
+
+  .edition-box{
+    padding: 12px;
+  }
+
+  .pill-status{
+    font-size: .9rem;
+  }
+
+  /* ---------- LEAD (Sobre + Resumo do dia) ---------- */
+  .leadbox{
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  /* coloca o resumo centralizado */
+  .lead-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lead-brief{
+    width: 100%;
+  }
+
+  .brief-label{
+    text-align: center;
+    width: 100%;
+  }
+
+  .brief-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .brief-actions .btn{
+    width: 100%;
+    max-width: 260px;
+  }
+
+  /* ---------- Section headers ---------- */
+  .section-head{
+    gap: 6px;
+  }
+
+  .section-title{
+    font-size: 1.35rem;
+  }
+
+  .section-sub{
+    font-size: .92rem;
+  }
+
+  /* ---------- Panels / cards mais compactos ---------- */
+  .panel{
+    padding: 14px;
+  }
+
+  .panel-head{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .panel-head .btn{
+    width: 100%;
+  }
+
+  /* ---------- PLANILHA (compactar igual imagem) ---------- */
+  .sheet-crop{
+    height: 420px;     /* ajuste fino: 380–520 */
+    overflow: hidden;
+  }
+
+  .sheet-crop .sheet-iframe{
+    transform: scale(0.72);
+    transform-origin: 0 0;
+
+    /* compensação do scale */
+    width: calc(100% / 0.72);
+    height: calc((100% + 50px) / 0.72);
+
+    /* recorte do publish */
+    top: -55px;
+    position: relative;
+  }
+
+  /* ---------- GRÁFICOS (compactar igual imagem) ---------- */
+  .chart-scroll{
+    overflow: hidden;          /* sem scroll no mobile */
+    padding: 10px;
+  }
+
+  .chart-stage{
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .chart-media{
+    width: 100%;
+    height: 360px;             /* altura do quadro do gráfico */
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.12);
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    position: relative;
+  }
+
+  /* zoom-out no gráfico (mostra mais área dentro do quadro) */
+  .chart-media .chart-img{
+    transform: scale(0.78);     /* 0.70 mais compacto / 0.85 menos */
+    transform-origin: 0 0;
+
+    width: calc(100% / 0.78);
+    height: auto;
+
+    position: relative;
+    left: -6%;
+    top: -6%;
+    display: block;
+  }
+
+  /* KPI numbers menores pra não quebrar */
+  .kpi-value{
+    font-size: 1.9rem;
+  }
+}
