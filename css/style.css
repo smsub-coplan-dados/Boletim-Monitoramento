@@ -910,42 +910,39 @@ code{
   }
 
   /* ---------- GRÁFICOS (compactar igual imagem) ---------- */
-  .chart-scroll{
-    overflow: hidden;          /* sem scroll no mobile */
-    padding: 10px;
-  }
+  /* ===== Charts (PNG) — sem distorção ===== */
+.chart-scroll{
+  width: 100%;
+  overflow: hidden; 
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.03);
+  border: 1px solid var(--border);
+}
 
-  .chart-stage{
-    width: 100%;
-    padding: 0;
-    background: transparent;
-    box-shadow: none;
-  }
+.chart-stage{
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
 
-  .chart-media{
-    width: 100%;
-    height: 360px;             /* altura do quadro do gráfico */
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,.12);
-    box-shadow: 0 10px 25px rgba(0,0,0,.06);
-    position: relative;
-  }
+.chart-media{
+  width: 100%;
+  height: 640px;              /* altura fixa do quadro (ajuste aqui) */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
 
-  /* zoom-out no gráfico (mostra mais área dentro do quadro) */
-  .chart-media .chart-img{
-    transform: scale(0.78);     /* 0.70 mais compacto / 0.85 menos */
-    transform-origin: 0 0;
-
-    width: calc(100% / 0.78);
-    height: auto;
-
-    position: relative;
-    left: -6%;
-    top: -6%;
-    display: block;
-  }
+.chart-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* ✅ SEM distorção */
+  display: block;
+}
 
   /* KPI numbers menores pra não quebrar */
   .kpi-value{

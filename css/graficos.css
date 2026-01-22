@@ -239,30 +239,34 @@ body{
   margin-top: 2px;
 }
 
-/* ===== Charts ===== */
-/* ===== Charts (PNG) — preencher o quadro ===== */
+/* =========================================================
+   CHARTS (PNG) — desktop + mobile SEM distorção e SEM corte
+   ========================================================= */
 
+/* Em vez de overflow hidden, deixa auto.
+   Se algum gráfico for mais alto/largo, ele não “corta”, ele rola. */
 .chart-scroll{
   width: 100%;
-  overflow: hidden;                 /* tira a barra de rolagem */
+  overflow: auto;                 /* ✅ evita cortar em 100% zoom */
+  -webkit-overflow-scrolling: touch;
   padding: 10px;
   border-radius: 12px;
   background: rgba(0,0,0,.03);
   border: 1px solid var(--border);
 }
 
-/* o stage agora ocupa 100% da largura */
+/* Stage ocupa 100% e não cria “moldura” gigante */
 .chart-stage{
   width: 100%;
-  padding: 0;                       /* sem borda interna gigante */
+  padding: 0;
   background: transparent;
   box-shadow: none;
 }
 
-/* aqui é o "quadro" mesmo */
+/* Quadro: altura inteligente no desktop */
 .chart-media{
   width: 100%;
-  height: clamp(320px, 55vh, 620px); /* padrão */
+  height: clamp(320px, 55vh, 620px);
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
@@ -272,20 +276,28 @@ body{
   place-items: center;
 }
 
+/* Imagem SEM cortar e SEM distorcer */
 .chart-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 75%;
+  height: 120%;
+  object-fit: contain;  /* <- obrigatório */
   display: block;
 }
 
-/* === Versão ALTA (para os dois últimos gráficos) === */
+/* --- Só pros gráficos “altos” (tipo esse último) --- */
 .chart-media--xl{
-  height: clamp(720px, 90vh, 1100px);
+  height: clamp(760px, 92vh, 1200px); /* aumenta bem no desktop */
 }
 
+.chart-img--small{
+  transform: scale(0.20);
+  transform-origin: center;
+}
 
-
+/* Quadro: altura inteligente no desktop */
+.chart-media--small{
+  height: clamp(240px, 40vh, 480px); /* quadro menor */
+}
 /* ===== Footer ===== */
 .footer{
   border-top: 1px solid var(--border);
@@ -314,12 +326,21 @@ body{
 @media (max-width: 992px){
   .masthead-grid{ grid-template-columns: 1fr; }
   .footer-grid{ grid-template-columns: 1fr; }
-  .chart-img{ max-width: 1200px; }
 }
 
+/* MOBILE */
 @media (max-width: 576px){
   .strip-muted{ display:none; }
-  .chart-img{ max-width: 1000px; }
+
+  /* quadro mais compacto no mobile */
+  .chart-media{
+    height: 460px;                 /* ✅ compacto e legível */
+  }
+
+  /* e “xl” no mobile ainda fica maior, mas sem explodir */
+  .chart-media--xl{
+    height: 620px;
+  }
 }
 
 /* ===== Impressão ===== */
