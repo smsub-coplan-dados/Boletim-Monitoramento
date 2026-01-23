@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8" />
+  <!-- Bootstrap depende muito de viewport correto pra responsividade -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boletim Diário • Monitoramento Poda e Remoção</title>
 
-  <!-- Bootstrap -->
+  <!-- Bootstrap CSS: entrega grid, utilitários (paddings/margens), botões, modal, etc. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome: ícones (não é Bootstrap) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- CSS do boletim -->
+  <!-- Seu CSS (custom): suas classes e aparência do boletim -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Scripts -->
+  <!-- Seus scripts (defer = carrega e executa depois do HTML parsear) -->
   <script src="js/main.js" defer></script>
   <script src="js/kpis-manual.js" defer></script>
   <script src="js/planilha-modal.js" defer></script>
@@ -25,7 +25,24 @@
 
   <!-- TOP STRIP (faixa superior do jornal) -->
   <div class="top-strip">
+
+    <!-- container (Bootstrap):
+         - centraliza conteúdo e limita largura (responsivo por breakpoints)
+         d-flex (Bootstrap):
+         - transforma em flex container
+         align-items-center (Bootstrap):
+         - alinha itens verticalmente no centro (no eixo cruzado do flex)
+         justify-content-between (Bootstrap):
+         - joga um bloco pra esquerda e outro pra direita (espaço entre)
+         gap-3 (Bootstrap):
+         - espaçamento entre itens do flex (gap = 3)
+         flex-wrap (Bootstrap):
+         - permite quebrar linha quando faltar espaço (mobile)
+         py-2 (Bootstrap):
+         - padding vertical (top/bottom) no nível 2
+    -->
     <div class="container d-flex align-items-center justify-content-between gap-3 flex-wrap py-2">
+
       <div class="strip-left">
         <span class="strip-pill">COPLAN/Dados</span>
         <span class="strip-muted">Secretaria Municipal das Subprefeituras</span>
@@ -33,33 +50,65 @@
 
       <div class="strip-right">
         <span class="strip-date">
+          <!-- me-2 (Bootstrap):
+               - margin-end (margem à direita em pt-BR LTR) no nível 2
+               - “end” respeita direção do texto (bom pra i18n)
+          -->
           <i class="fa-regular fa-calendar me-2"></i><strong id="dataAtual">—</strong>
+
+          <!-- mx-2 (Bootstrap):
+               - margin horizontal (esquerda e direita) no nível 2
+          -->
           <span class="mx-2">•</span>
+
           <i class="fa-regular fa-clock me-2"></i><strong id="horaAtual">—</strong>
         </span>
 
+        <!-- btn (Bootstrap):
+             - estilo base de botão
+             btn-sm (Bootstrap):
+             - botão menor (padding e fonte menores)
+             btn-outline-dark (Bootstrap):
+             - estilo “contorno” com cor dark
+             ms-2 (Bootstrap):
+             - margin-start (margem à esquerda) no nível 2
+        -->
         <button class="btn btn-sm btn-outline-dark ms-2" onclick="window.print()">
           <i class="fa-solid fa-print me-2"></i>Imprimir
         </button>
+
         <a class="btn btn-sm btn-outline-dark" href="graficos_referencia.html">
           <i class="fa-solid fa-chart-column me-2"></i> Ver. Estoque referência
         </a>
       </div>
+
     </div>
   </div>
 
-  <!-- MASTHEAD (cabeçalho estilo jornal) -->
+  <!-- MASTHEAD -->
   <header class="masthead">
+
+    <!-- container (Bootstrap): layout responsivo com margens laterais automáticas -->
+    <!-- py-3 (Bootstrap): padding vertical nível 3 -->
     <div class="container py-3">
 
       <div class="masthead-grid">
+
+        <!-- d-flex (Bootstrap): flex container
+             align-items-center (Bootstrap): centraliza verticalmente
+             gap-3 (Bootstrap): espaçamento entre logo e texto
+        -->
         <div class="brand d-flex align-items-center gap-3">
-          <img src="img/LOGO_PREFEITURADESAOPAULO_HORIZONTAL_MONOCROMATICO_PRETO_PT.png" alt="Prefeitura de São Paulo"
-            class="logo" />
+          <img src="img/LOGO_PREFEITURADESAOPAULO_HORIZONTAL_MONOCROMATICO_PRETO_PT.png"
+               alt="Prefeitura de São Paulo"
+               class="logo" />
 
           <div class="brand-lines">
             <div class="kicker">Boletim Diário de Monitoramento</div>
+
+            <!-- m-0 (Bootstrap): remove TODA margem do h1 -->
             <h1 class="title m-0">Poda e Remoção de Árvores</h1>
+
             <div class="deck">
               Monitoramento do estoque operacional a partir de <strong>22/12/2025</strong>.
             </div>
@@ -89,14 +138,19 @@
             Para melhor visualização no celular, use a orientação horizontal.
           </div>
         </aside>
+
       </div>
 
+      <!-- mt-3 (Bootstrap): margin-top nível 3 -->
       <div class="rule-thick mt-3"></div>
     </div>
   </header>
 
-  <!-- LEAD / CHAMADA -->
+  <!-- LEAD -->
   <section class="leadline">
+    <!-- container (Bootstrap): largura responsiva
+         py-3 (Bootstrap): padding vertical nível 3
+    -->
     <div class="container py-3">
       <div class="leadbox">
         <div class="lead-left">
@@ -104,6 +158,8 @@
           <div class="lead-title" id="leadTitulo">
             Acompanhamento do estoque do serviço de Poda e Remoção de Árvores.
           </div>
+
+          <!-- m-0 (Bootstrap): remove margem do parágrafo -->
           <p class="lead-text m-0">
             Este boletim consolida indicadores, tendências e consulta rápida à base diária para apoiar priorização e
             tomada de decisão e encerramento de soclicitações de poda e remoção de árvores no município de São Paulo.
@@ -115,10 +171,14 @@
             <div class="brief-label">Resumo do dia</div>
 
             <div class="brief-text brief-actions">
+              <!-- btn btn-sm btn-dark (Bootstrap):
+                   - botão pequeno, preenchido, cor dark
+              -->
               <a class="btn btn-sm btn-dark" href="#indicadores">
                 <i class="fa-solid fa-chart-line me-2"></i>Ver indicadores
               </a>
 
+              <!-- btn-outline-dark: contorno -->
               <a class="btn btn-sm btn-outline-dark" href="#planilha">
                 <i class="fa-solid fa-table me-2"></i>Abrir planilha
               </a>
@@ -133,18 +193,34 @@
 
   <!-- KPI SECTION -->
   <section class="kpi-section" id="indicadores">
+    <!-- container (Bootstrap): largura responsiva
+         pb-4 (Bootstrap): padding-bottom nível 4
+    -->
     <div class="container pb-4">
 
       <div class="section-head">
+        <!-- m-0 (Bootstrap): remove margem do h2 -->
         <h2 class="section-title m-0">Indicadores</h2>
         <div class="section-sub">Visão executiva consolidada</div>
       </div>
 
+      <!-- mt-2 mb-3 (Bootstrap): margem superior 2, inferior 3 -->
       <div class="rule-thin mt-2 mb-3"></div>
 
+      <!-- row (Bootstrap grid):
+           - linha do grid. Dentro dela, usa col-* pra colunas
+           g-4 (Bootstrap):
+           - gutter (espaço entre colunas/linhas) no nível 4
+           mt-1 (Bootstrap):
+           - margin-top nível 1
+      -->
       <div class="row g-4 mt-1">
 
-        <!-- KPI 1 -->
+        <!-- col-12 (Bootstrap):
+             - ocupa 12/12 colunas no mobile (100%)
+             col-md-4 (Bootstrap):
+             - a partir de md (>=768px), ocupa 4/12 (3 cards por linha)
+        -->
         <div class="col-12 col-md-4">
           <div class="kpi-card kpi-strong">
             <div class="kpi-top">
@@ -156,7 +232,6 @@
           </div>
         </div>
 
-        <!-- KPI 2 -->
         <div class="col-12 col-md-4">
           <div class="kpi-card">
             <div class="kpi-top">
@@ -168,7 +243,6 @@
           </div>
         </div>
 
-        <!-- KPI 3 -->
         <div class="col-12 col-md-4">
           <div class="kpi-card">
             <div class="kpi-top">
@@ -180,7 +254,11 @@
           </div>
         </div>
 
-        <!-- KPI 4 -->
+        <!-- col-12 (Bootstrap):
+             - 100% no mobile
+             col-xl-6 (Bootstrap):
+             - a partir de xl (>=1200px), 6/12 (2 colunas lado a lado)
+        -->
         <div class="col-12 col-xl-6">
           <div class="kpi-card kpi-warn">
             <div class="kpi-top">
@@ -188,12 +266,11 @@
               <div class="kpi-icon"><i class="fa-solid fa-trophy"></i></div>
             </div>
 
-            <!-- aqui o JS injeta vários cards -->
+            <!-- mt-3 (Bootstrap): margem superior nível 3 -->
             <div class="kpi-list mt-3" id="cardsTopCumprida">—</div>
           </div>
         </div>
 
-        <!-- KPI 5 -->
         <div class="col-12 col-xl-6">
           <div class="kpi-card kpi-danger">
             <div class="kpi-top">
@@ -201,18 +278,17 @@
               <div class="kpi-icon"><i class="fa-solid fa-circle-xmark"></i></div>
             </div>
 
-            <!-- aqui o JS injeta vários cards -->
             <div class="kpi-list mt-3" id="cardsFaltaMuito">—</div>
           </div>
         </div>
 
       </div>
-
     </div>
   </section>
 
   <!-- PLANILHA -->
   <section class="sheet-section py-4" id="planilha">
+    <!-- py-4 (Bootstrap): padding vertical nível 4 -->
     <div class="container">
 
       <div class="section-head">
@@ -229,16 +305,26 @@
             <div class="panel-sub">Clique em “Ampliar” para abrir em tela cheia</div>
           </div>
 
-          <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#sheetModal"
-            data-sheet-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTcXn7lLTG-nE45v5IjAQrUPzGG0BvmYCQtznqs9Pm-UR_Ecg8nnCVe2AW4KG2Mfa2CTGCzvbOP2fmj/pubhtml?widget=true&headers=false">
+          <!-- data-bs-toggle="modal" (Bootstrap JS):
+               - quando clicar, ativa o componente Modal
+               data-bs-target="#sheetModal" (Bootstrap JS):
+               - indica qual modal abrir (pelo id)
+               obs: data-sheet-src é seu atributo custom (seu JS vai ler)
+          -->
+          <button type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  data-bs-toggle="modal"
+                  data-bs-target="#sheetModal"
+                  data-sheet-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDlKpnwVMFa3ucRsxBCk-8DoXVTS4lrdj4mvkqCV-AZ5xWDZA1aa0TRem9xgx0CagSyWKVF65BuSUS/pubhtml?widget=true&headers=false">
             <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
           </button>
         </div>
 
         <div class="sheet-crop">
           <iframe class="sheet-iframe"
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTcXn7lLTG-nE45v5IjAQrUPzGG0BvmYCQtznqs9Pm-UR_Ecg8nnCVe2AW4KG2Mfa2CTGCzvbOP2fmj/pubhtml?widget=true&headers=false"
-            loading="lazy" title="Planilha diária (Google Sheets)">
+                  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDlKpnwVMFa3ucRsxBCk-8DoXVTS4lrdj4mvkqCV-AZ5xWDZA1aa0TRem9xgx0CagSyWKVF65BuSUS/pubhtml?widget=true&headers=false"
+                  loading="lazy"
+                  title="Planilha diária (Google Sheets)">
           </iframe>
         </div>
       </div>
@@ -257,9 +343,10 @@
 
       <div class="rule-thin mt-2 mb-3"></div>
 
+      <!-- row (Bootstrap grid) + g-3 (gutter nível 3) -->
       <div class="row g-3">
 
-        <!-- Gráfico 1 -->
+        <!-- col-12: ocupa a linha inteira em todos os tamanhos -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -267,7 +354,13 @@
                 <div class="panel-title">Evolução do estoque</div>
                 <div class="panel-sub">Tendência diária do estoque consolidado</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/line_graph_20260122.png" target="_blank" rel="noopener">
+
+              <!-- btn btn-sm btn-outline-dark: botão Bootstrap -->
+              <!-- target="_blank" rel="noopener": segurança/performance ao abrir nova aba -->
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/line_graph_20260123.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -275,14 +368,17 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media">
-                  <img class="chart-img" src="img/line_graph_20260122.png" alt="Evolução do estoque" loading="lazy" />
+                  <img class="chart-img"
+                       src="img/line_graph_20260123.png"
+                       alt="Evolução do estoque"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
-        <!-- Gráfico 2 -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -290,7 +386,11 @@
                 <div class="panel-title">Estoque por Subprefeitura</div>
                 <div class="panel-sub">Distribuição do estoque atual por território</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/bar_graph_20260122.png" target="_blank" rel="noopener">
+
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/bar_graph_20260123.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -298,11 +398,14 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media">
-                  <img class="chart-img" src="img/bar_graph_20260122.png" alt="Estoque por Subprefeitura"
-                    loading="lazy" />
+                  <img class="chart-img"
+                       src="img/bar_graph_20260123.png"
+                       alt="Estoque por Subprefeitura"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -315,6 +418,11 @@
             <div class="footer-title">Secretaria Municipal das Subprefeituras</div>
             <div class="footer-sub">© <span id="ano"></span> • COPLAN/Dados</div>
           </div>
+
+          <!-- text-md-end (Bootstrap):
+               - a partir de md, alinha texto à direita
+               - abaixo de md, fica padrão (geralmente esquerda)
+          -->
           <div class="footer-sub text-md-end">
             Documento interno para acompanhamento gerencial.
           </div>
@@ -325,31 +433,57 @@
   </section>
 
   <!-- MODAL: PLANILHA -->
+  <!-- modal fade (Bootstrap):
+       - modal: ativa estilos do componente
+       - fade: animação de entrada/saída (opacidade)
+       tabindex="-1": permite foco/teclado no modal
+       aria-hidden: acessibilidade (estado inicial)
+  -->
   <div class="modal fade" id="sheetModal" tabindex="-1" aria-hidden="true">
+    <!-- modal-dialog (Bootstrap): container de posicionamento do modal -->
+    <!-- modal-fullscreen (Bootstrap): modal ocupa a tela inteira -->
     <div class="modal-dialog modal-fullscreen">
+      <!-- modal-content (Bootstrap): caixa “real” do modal (fundo, borda, estrutura) -->
       <div class="modal-content">
+
+        <!-- modal-header (Bootstrap): área de topo do modal -->
         <div class="modal-header modal-header-fix">
+          <!-- modal-title (Bootstrap): estilo correto do título no header -->
+          <!-- text-truncate (Bootstrap): corta texto com reticências se não couber -->
           <h5 class="modal-title text-truncate">Planilha Expandida</h5>
 
-          <button type="button" class="btn btn-sm btn-outline-light modal-close-fix" data-bs-dismiss="modal"
-            aria-label="Fechar">
+          <!-- data-bs-dismiss="modal" (Bootstrap JS):
+               - fecha o modal quando clicar (sem você escrever JS)
+               btn / btn-sm / btn-outline-light (Bootstrap):
+               - botão pequeno com contorno claro
+          -->
+          <button type="button"
+                  class="btn btn-sm btn-outline-light modal-close-fix"
+                  data-bs-dismiss="modal"
+                  aria-label="Fechar">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
+        <!-- modal-body (Bootstrap): corpo do modal -->
+        <!-- p-0 (Bootstrap): padding zero (pra iframe encostar nas bordas) -->
         <div class="modal-body p-0">
           <iframe id="modalSheetIframe" class="modal-sheet-iframe" title="Planilha expandida"></iframe>
         </div>
+
       </div>
     </div>
   </div>
-  
-   <!-- BOTÃO VOLTAR AO TOPO -->
+
+  <!-- BOTÃO VOLTAR AO TOPO -->
   <a href="#topo" class="back-to-top" aria-label="Voltar ao início" title="Voltar ao início">
     <i class="fa-solid fa-arrow-up"></i>
   </a>
 
-  <!-- Bootstrap bundle -->
+  <!-- Bootstrap bundle JS:
+       - contém o JS do Bootstrap + Popper
+       - necessário pra Modal funcionar (data-bs-toggle, data-bs-dismiss, etc.)
+  -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -366,5 +500,3 @@
 
 </body>
 </html>
-
-

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8" />
+  <!-- viewport correto = Bootstrap responsivo funcionando (grid + utilitários) -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boletim Diário • Gráficos</title>
 
-  <!-- Bootstrap -->
+  <!-- Bootstrap CSS: grid (row/col-*), utilitários (m-/p-/d-flex/gap/etc), botões -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome: ícones (não é Bootstrap) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- CSS da página 2 -->
+  <!-- Seu CSS custom da página 2 -->
   <link rel="stylesheet" href="css/graficos.css" />
 
-  <!-- Data/hora/ano -->
+  <!-- Seu JS (defer = roda depois que o HTML foi parseado) -->
   <script src="js/main.js" defer></script>
 </head>
 
@@ -23,19 +23,61 @@
 
   <!-- TOP STRIP -->
   <div class="top-strip">
+
+    <!-- container (Bootstrap):
+         - centraliza e limita largura com breakpoints
+         d-flex:
+         - vira flex container (itens lado a lado)
+         align-items-center:
+         - alinha verticalmente no centro
+         justify-content-between:
+         - joga esquerda e direita para extremos (espaço entre)
+         gap-3:
+         - espaçamento entre itens (gap nível 3)
+         flex-wrap:
+         - quebra linha se faltar espaço (mobile)
+         py-2:
+         - padding vertical (top/bottom) nível 2
+    -->
     <div class="container d-flex align-items-center justify-content-between gap-3 flex-wrap py-2">
+
       <div class="strip-left">
         <span class="strip-pill">COPLAN/Dados</span>
         <span class="strip-muted">Secretaria Municipal das Subprefeituras</span>
       </div>
 
+      <!-- d-flex:
+           - coloca os itens do lado direito em linha (botões + data)
+           align-items-center:
+           - centraliza verticalmente esses itens
+           gap-2:
+           - espaçamento menor entre itens (nível 2)
+           flex-wrap:
+           - quebra linha no mobile
+      -->
       <div class="strip-right d-flex align-items-center gap-2 flex-wrap">
+
         <span class="strip-date">
+          <!-- me-2:
+               - margin-end (margem à direita) nível 2
+          -->
           <i class="fa-regular fa-calendar me-2"></i><strong id="dataAtual">—</strong>
+
+          <!-- mx-2:
+               - margin horizontal (esquerda/direita) nível 2
+          -->
           <span class="mx-2">•</span>
+
           <i class="fa-regular fa-clock me-2"></i><strong id="horaAtual">—</strong>
         </span>
 
+        <!-- btn:
+             - base de botão Bootstrap
+             btn-sm:
+             - botão menor
+             btn-outline-dark:
+             - contorno escuro (sem preenchimento)
+        -->
         <a class="btn btn-sm btn-outline-dark" href="index.html">
           <i class="fa-solid fa-arrow-left me-2"></i>Ver. Estoque total
         </a>
@@ -44,21 +86,41 @@
           <i class="fa-solid fa-print me-2"></i>Imprimir
         </button>
       </div>
+
     </div>
   </div>
 
   <!-- MASTHEAD -->
   <header class="masthead">
+    <!-- container:
+         - largura responsiva + centralização
+         py-3:
+         - padding vertical nível 3
+    -->
     <div class="container py-3">
 
       <div class="masthead-grid">
+
+        <!-- d-flex:
+             - logo e texto lado a lado
+             align-items-center:
+             - alinha verticalmente ao centro
+             gap-3:
+             - espaço entre logo e bloco de texto
+        -->
         <div class="brand d-flex align-items-center gap-3">
-          <img src="img/LOGO_PREFEITURADESAOPAULO_HORIZONTAL_MONOCROMATICO_PRETO_PT.png" alt="Prefeitura de São Paulo"
-            class="logo" />
+          <img src="img/LOGO_PREFEITURADESAOPAULO_HORIZONTAL_MONOCROMATICO_PRETO_PT.png"
+               alt="Prefeitura de São Paulo"
+               class="logo" />
 
           <div class="brand-lines">
             <div class="kicker">Boletim Diário de Monitoramento</div>
+
+            <!-- m-0:
+                 - remove margens do H1 (Bootstrap default tem margem)
+            -->
             <h1 class="title m-0">Painel de Gráficos — Poda e Remoção</h1>
+
             <div class="deck">
               Quatro visualizações-chave para leitura rápida e comparações.
             </div>
@@ -88,8 +150,15 @@
             Dica: no celular, use orientação horizontal para ver melhor.
           </div>
         </aside>
+
         <div class="lead-left">
-          <div class="lead-tag"> <b>Quatro visualizações chave para leitura rápida e comparações</b> <br><br></div>
+          <div class="lead-tag">
+            <b>Quatro visualizações chave para leitura rápida e comparações</b><br><br>
+          </div>
+
+          <!-- m-0:
+               - remove margem do parágrafo (pra não “empurrar” layout)
+          -->
           <p class="lead-text m-0">
             Aqui toma-se como base uma meta, que seria de zerar o estoque. Porém, considerando as Ordens de Serviço que
             entraram até a data de <B>22/12/2025</B>, e sendo acompanhada a execução da mesma. <br> <br>
@@ -99,25 +168,43 @@
         </div>
       </div>
 
+      <!-- mt-3:
+           - margin-top nível 3
+      -->
       <div class="rule-thick mt-3"></div>
     </div>
   </header>
 
   <!-- SEÇÃO GRÁFICOS -->
   <section class="charts-page py-4">
+    <!-- py-4:
+         - padding vertical nível 4
+    -->
     <div class="container">
 
       <div class="section-head">
+        <!-- m-0:
+             - remove margem do h2
+        -->
         <h2 class="section-title m-0">Gráficos do <i> estoque de referência </i></b></h2>
         <div class="section-sub">Clique em “Ampliar” para abrir em nova aba</div>
       </div>
 
+      <!-- mt-2 mb-3:
+           - margin-top nível 2, margin-bottom nível 3
+      -->
       <div class="rule-thin mt-2 mb-3"></div>
 
-      <!-- ✅ AGORA É 1 GRÁFICO POR LINHA -->
+      <!-- row:
+           - linha do grid do Bootstrap
+           g-3:
+           - gutter (espaço entre colunas/linhas do grid) nível 3
+      -->
       <div class="row g-3">
 
-        <!-- GRAFICO 1 -->
+        <!-- col-12:
+             - ocupa 12/12 sempre (um gráfico por linha em qualquer tamanho)
+        -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -125,8 +212,18 @@
                 <div class="panel-title">1) Evolução do estoque</div>
                 <div class="panel-sub">Velocimetro dos valores de referência</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/graph_2_gauge-chart_20260122_m2.png" target="_blank"
-                rel="noopener">
+
+              <!-- btn btn-sm btn-outline-dark:
+                   - botão pequeno com contorno
+                   target="_blank":
+                   - abre em nova aba
+                   rel="noopener":
+                   - segurança/performance (evita a aba nova mexer na original)
+              -->
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/graph_2_gauge-chart_20260123_m2.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -134,15 +231,17 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media">
-                  <img class="chart-img" src="img/graph_2_gauge-chart_20260122_m2.png"
-                    alt="Gráfico 1 - Evolução do estoque" loading="lazy" />
+                  <img class="chart-img"
+                       src="img/graph_2_gauge-chart_20260123_m2.png"
+                       alt="Gráfico 1 - Evolução do estoque"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
-        <!-- GRAFICO 2 -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -150,8 +249,11 @@
                 <div class="panel-title">2) Barra de entradas</div>
                 <div class="panel-sub">Estoque de referência vs entrada</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/graph_4_composicao_estoque_20260122_m2.png"
-                target="_blank" rel="noopener">
+
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/graph_4_composicao_estoque_20260123_m2.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -159,15 +261,17 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media">
-                  <img class="chart-img" src="img/graph_4_composicao_estoque_20260122_m2.png"
-                    alt="Gráfico 2 - Estoque por Subprefeitura" loading="lazy" />
+                  <img class="chart-img"
+                       src="img/graph_4_composicao_estoque_20260123_m2.png"
+                       alt="Gráfico 2 - Estoque por Subprefeitura"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
-        <!-- GRAFICO 3 -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -175,8 +279,11 @@
                 <div class="panel-title">3) Gráfico de born down</div>
                 <div class="panel-sub">Aderência à trajetória de redução</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/graph_1_burn-down_20260122_m2.png" target="_blank"
-                rel="noopener">
+
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/graph_1_burn-down_20260123_m2.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -184,15 +291,17 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media chart-media--xl">
-                  <img class="chart-img" src="img/graph_1_burn-down_20260122_m2.png"
-                    alt="Gráfico 3 - Diferença diária vs meta" loading="lazy" />
+                  <img class="chart-img"
+                       src="img/graph_1_burn-down_20260123_m2.png"
+                       alt="Gráfico 3 - Diferença diária vs meta"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
-        <!-- GRAFICO 4 -->
         <div class="col-12">
           <div class="panel">
             <div class="panel-head">
@@ -200,8 +309,11 @@
                 <div class="panel-title">4) Baixas por Subprefeitura</div>
                 <div class="panel-sub">Produção e encerramentos no recorte</div>
               </div>
-              <a class="btn btn-sm btn-outline-dark" href="img/graph_3_reducao_estoque_sub_20260122_m2.png"
-                target="_blank" rel="noopener">
+
+              <a class="btn btn-sm btn-outline-dark"
+                 href="img/graph_3_reducao_estoque_sub_20260123_m2.png"
+                 target="_blank"
+                 rel="noopener">
                 <i class="fa-solid fa-up-right-and-down-left-from-center me-2"></i>Ampliar
               </a>
             </div>
@@ -209,11 +321,20 @@
             <div class="chart-scroll">
               <div class="chart-stage">
                 <div class="chart-media chart-media--xl">
-                  <img class="chart-img " .chart-img--small src="img/graph_3_reducao_estoque_sub_20260122_m2.png"
-                    alt="Gráfico 4 - Baixas por período" loading="lazy" />
+                  <!-- ATENÇÃO:
+                       aqui tem um erro de HTML/CSS:
+                       <img class="chart-img " .chart-img--small ...>
+                       Esse ".chart-img--small" solto quebra o HTML.
+                       O certo é: class="chart-img chart-img--small"
+                  -->
+                  <img class="chart-img chart-img--xl"
+                       src="img/graph_3_reducao_estoque_sub_20260123_m2.png"
+                       alt="Gráfico 4 - Baixas por período"
+                       loading="lazy" />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -226,6 +347,11 @@
             <div class="footer-title">Secretaria Municipal das Subprefeituras</div>
             <div class="footer-sub">© <span id="ano">—</span> • COPLAN/Dados</div>
           </div>
+
+          <!-- text-lg-end (Bootstrap):
+               - a partir de lg (>=992px), alinha texto à direita
+               - abaixo disso, mantém alinhamento padrão (normalmente esquerda)
+          -->
           <div class="footer-sub text-lg-end">
             Página de apoio — gráficos do boletim.
           </div>
@@ -235,12 +361,16 @@
     </div>
   </section>
 
-   <!-- BOTÃO VOLTAR AO TOPO -->
+  <!-- BOTÃO VOLTAR AO TOPO -->
   <a href="#topo" class="back-to-top" aria-label="Voltar ao início" title="Voltar ao início">
     <i class="fa-solid fa-arrow-up"></i>
   </a>
 
-  <!-- Bootstrap bundle -->
+  <!-- Bootstrap bundle JS:
+       - contém o JS do Bootstrap + Popper
+       - aqui ele não é obrigatório pra “grid e botões”, mas é padrão e útil se você usar componentes JS
+       - seu back-to-top não depende disso (é JS seu)
+  -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
