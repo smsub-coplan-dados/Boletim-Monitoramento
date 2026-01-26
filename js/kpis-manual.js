@@ -1,14 +1,14 @@
 // js/kpis-manual.js
 
 const KPIS_DO_DIA = {
-  estoqueTotal: 10520,
-  abertas: 4355,
-  encerradas: 8224,
+  estoqueTotal: 9985,
+  abertas: 4663,
+  encerradas: 8915,
 
   // Aceita string "Nome (123), Nome (456)"
-  topCumprida: "Vila Mariana (16810), Pinheiros (16531), Butantã (14728)",
+  topCumprida: "Vila Mariana (16812), Pinheiros (16553), Butantã (14772)",
 
-  faltaMuito: "Perus (2300), Cidade Tiradentes (1617), Parelheiros (1497)"
+  faltaMuito: "Perus (2303), Cidade Tiradentes (1617), Parelheiros (1497)"
 };
 
 // ===== Helpers =====
