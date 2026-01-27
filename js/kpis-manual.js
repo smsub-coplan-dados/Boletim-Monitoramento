@@ -5,8 +5,8 @@ const KPIS_DO_DIA = {
   abertas: 4949,
   encerradas: 9670,
 
-  topCumprida: "Vila Mariana (16812), Pinheiros (16553), Butantã (14772)",
-  faltaMuito: "Perus (2303), Cidade Tiradentes (1617), Parelheiros (1497)",
+  topCumprida: "Vila Mariana (16824), Pinheiros (16567), Butantã (14793)",
+  faltaMuito: "Perus (2306), Cidade Tiradentes (1617), Parelheiros (1497)",
 
   // Sua lista: "Nome (n), Nome (n)..."
   menorExecServico:
