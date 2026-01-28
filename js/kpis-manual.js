@@ -1,9 +1,9 @@
 // js/kpis-manual.js
 
 const KPIS_DO_DIA = {
-  estoqueTotal: 8620,
-  abertas: 5206,
-  encerradas: 10194,
+  estoqueTotal: 9077,
+  abertas: 5258,
+  encerradas: 10286,
 
   topCumprida: "Vila Mariana (16831), Pinheiros (16573), Butantã (14842)",
   faltaMuito: "Perus (2308), Cidade Tiradentes (1617), Parelheiros (1497)",
