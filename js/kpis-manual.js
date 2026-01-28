@@ -1,12 +1,12 @@
 // js/kpis-manual.js
 
 const KPIS_DO_DIA = {
-  estoqueTotal: 9406,
-  abertas: 4949,
-  encerradas: 9670,
+  estoqueTotal: 8620,
+  abertas: 5206,
+  encerradas: 10194,
 
-  topCumprida: "Vila Mariana (16824), Pinheiros (16567), Butantã (14793)",
-  faltaMuito: "Perus (2306), Cidade Tiradentes (1617), Parelheiros (1497)",
+  topCumprida: "Vila Mariana (16831), Pinheiros (16573), Butantã (14842)",
+  faltaMuito: "Perus (2308), Cidade Tiradentes (1617), Parelheiros (1497)",
 
   // Sua lista: "Nome (n), Nome (n)..."
   menorExecServico:
